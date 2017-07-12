@@ -6,17 +6,19 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import ch.test.axis2.Axis2Test;
 import ch.util.crc.CRCTest;
 public class TestServlet extends HttpServlet {
 	private static final long serialVersionUID = 9158993975266397633L;
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<Model> modelList = new ArrayList<Model>();
-//		modelList.add(new Model("EndpointTest.testHelloWorld", new EndpointTest().testHelloWorld()));
-//		modelList.add(new Model("EndpointTest.testJobRecomm", new EndpointTest().testJobRecomm()));
-//		modelList.add(new Model("EndpointTest.testAccessRecord", new EndpointTest().testAccessRecord()));
-//		modelList.add(new Model("Axis2Test.testHello", new Axis2Test().testHelloWorld()));
-//		modelList.add(new Model("Axis2Test.testAccessRecord", new Axis2Test().testAccessRecord()));
+//		modelList.add(new Model("CXFTest.testHelloWorld", new CXFTest().testHelloWorld()));
+//		modelList.add(new Model("CXFTest.testJobRecomm", new CXFTest().testJobRecomm()));
+//		modelList.add(new Model("CXFTest.testAccessRecord", new CXFTest().testAccessRecord()));
+		modelList.add(new Model("Axis2Test.testHello", new Axis2Test().testHelloWorld()));
+		modelList.add(new Model("Axis2Test.testJobRecomm", new Axis2Test().testJobRecomm()));
+		modelList.add(new Model("Axis2Test.testAccessRecord", new Axis2Test().testAccessRecord()));
 		req.setAttribute("modelList", modelList);
 		req.setAttribute("crcList", new CRCTest().test());
 		req.getRequestDispatcher("test.jsp").forward(req, resp);
