@@ -9,7 +9,7 @@ public class CXFTest {
 	private List<String> list = new ArrayList<String>();
 	public String testHelloWorld(){
 		try {
-			return new HelloWorldImplService().getHelloWorldImplPort().sayHi("ddddd");
+			return new HelloWorldImplService().getHelloWorldImplPort().sayHi("hsiang");
 		} catch (RuntimeException re){
 			re.printStackTrace();
 			return re.getLocalizedMessage();
