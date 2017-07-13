@@ -1,12 +1,24 @@
 package ch.test.cxf;
 import java.util.ArrayList;
 import java.util.List;
+import com.e104.mongo.MongoService00;
 import com.e104.pdd.JobRecomm00;
 import com.e104.plus.service.impl.AccessRecordService00;
 import com.e104.plus.service.impl.AccessRecordServiceException_Exception;
 import demo.spring.service.HelloWorldImplService;
 public class CXFTest {
 	private List<String> list = new ArrayList<String>();
+	public List<String> testMongoService(){
+		try {
+			list.add(new MongoService00().getMongoService00HttpEndpoint().select("mdb0c00038", "jimmy_test", "{id:2}"));
+		} catch (RuntimeException re){
+			re.printStackTrace();
+			list.add(re.getLocalizedMessage());
+		}
+		list.add(new MongoService00().getMongoService00HttpSoap11Endpoint().select("mdb0c00038", "jimmy_test", "{id:2}"));
+		list.add(new MongoService00().getMongoService00HttpSoap12Endpoint().select("mdb0c00038", "jimmy_test", "{id:2}"));
+		return list;
+	}
 	public String testHelloWorld(){
 		try {
 			return new HelloWorldImplService().getHelloWorldImplPort().sayHi("hsiang");

@@ -46,6 +46,14 @@
 							<databindingName>xmlbeans</databindingName>
 						</configuration>
 					</execution>
+					<execution>
+						<id>wsdl3</id>
+						<goals><goal>wsdl2code</goal></goals>
+						<configuration>
+							<wsdlFile>http://intesb.cloud.s104.com.tw/services/MongoService.0.0?wsdl</wsdlFile>
+							<databindingName>xmlbeans</databindingName>
+						</configuration>
+					</execution>
 				</executions>
 			</plugin>
 		</plugins>

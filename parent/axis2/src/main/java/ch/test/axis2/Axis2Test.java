@@ -1,6 +1,9 @@
 package ch.test.axis2;
 import java.rmi.RemoteException;
 import org.apache.axis2.AxisFault;
+import com.e104.mongo.MongoService00Stub;
+import com.e104.mongo.SelectDocument;
+import com.e104.mongo.SelectDocument.Select;
 import com.e104.pdd.JobRecomm00Stub;
 import com.e104.pdd.JobTitleACDocument;
 import com.e104.pdd.JobTitleACResponseDocument;
@@ -20,6 +23,26 @@ public class Axis2Test {
 		System.out.println(new Axis2Test().testHelloWorld());
 		System.out.println(new Axis2Test().testJobRecomm());
         System.out.println(new Axis2Test().testAccessRecord());
+        System.out.println(new Axis2Test().testMongoService());
+	}
+	public String testMongoService(){
+		StringBuilder builder = new StringBuilder();
+		try {
+			MongoService00Stub stub = new MongoService00Stub();
+			SelectDocument sDoc = SelectDocument.Factory.newInstance();
+			Select select = sDoc.addNewSelect();
+			select.setJSONQuery("{}");
+			select.setDBname("mdb0c00038");
+			select.setCollectionname("jimmy_test");
+			builder.append(stub.select(sDoc).getSelectResponse().getReturn());
+		} catch (AxisFault e) {
+			e.printStackTrace();
+			builder.append(e.getLocalizedMessage());
+		} catch (RemoteException e) {
+			e.printStackTrace();
+			builder.append(e.getLocalizedMessage());
+		}
+		return builder.toString();
 	}
 	public String testHelloWorld(){
 		StringBuilder builder = new StringBuilder();
@@ -83,6 +106,7 @@ public class Axis2Test {
 			vOper.setTargetPid(1l);
 			ViewProfileFromProResponseDocument vResp = stub.viewProfileFromPro(vDoc);
 			builder.append(vResp.getViewProfileFromProResponse().getReturn());
+			builder.append('\n');
 			QueryActivityTotalPvDocument qDoc = QueryActivityTotalPvDocument.Factory.newInstance();
 			QueryActivityTotalPv qOper = qDoc.addNewQueryActivityTotalPv();
 			qOper.setProductKey("ppp");
