@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import ch.test.axis2.Axis2Test;
 import ch.test.http.ProfileSearchEngineTest;
+import ch.test.mongodb.MongodbTest;
 import ch.util.crc.CRCTest;
 public class TestServlet extends HttpServlet {
 	private static final long serialVersionUID = 9158993975266397633L;
@@ -23,6 +24,7 @@ public class TestServlet extends HttpServlet {
 		modelList.add(new Model("Axis2Test.testAccessRecord", new Axis2Test().testAccessRecord()));
 		modelList.add(new Model("Axis2Test.testMongoService", new Axis2Test().testMongoService()));
 		modelList.add(new Model("ProfileSearchEngineTest.testProfileSearchEngine", new ProfileSearchEngineTest().testProfileSearchEngine()));
+		modelList.add(new Model("MongodbTest.testMongodb", new MongodbTest().testMongodb()));
 		req.setAttribute("modelList", modelList);
 		req.setAttribute("crcList", new CRCTest().test());
 		req.getRequestDispatcher("test.jsp").forward(req, resp);
