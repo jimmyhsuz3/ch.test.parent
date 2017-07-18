@@ -15,6 +15,7 @@ public class TestServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		List<Model> modelList = new ArrayList<Model>();
+//		<!-- HJAAM+HM -->
 //		modelList.add(new Model("CXFTest.testHelloWorld", new CXFTest().testHelloWorld()));
 //		modelList.add(new Model("CXFTest.testJobRecomm", new CXFTest().testJobRecomm()));
 //		modelList.add(new Model("CXFTest.testAccessRecord", new CXFTest().testAccessRecord()));
