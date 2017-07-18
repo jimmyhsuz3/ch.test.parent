@@ -27,6 +27,7 @@
 								<wsdlOption><wsdl>http://localhost:8081/java_first_spring_support/services/HelloWorld?wsdl</wsdl></wsdlOption>
 								<wsdlOption><wsdl>http://esb.cloud.s104.com.tw/services/JobRecomm.0.0?wsdl</wsdl></wsdlOption>
 								<wsdlOption><wsdl>http://esb.cloud.s104.com.tw/services/AccessRecordService.0.0?wsdl</wsdl></wsdlOption>
+<!-- Underscores can only be used with source level 1.7 or greater	002_002fAccessRecordService.java -->
 <!-- 								<wsdlOption><wsdl>http://172.19.7.194:9763/services/0.0.3/AccessRecordService?wsdl</wsdl></wsdlOption> -->
 								<wsdlOption><wsdl>http://intesb.cloud.s104.com.tw/services/MongoService.0.0?wsdl</wsdl></wsdlOption>
 							</wsdlOptions>
