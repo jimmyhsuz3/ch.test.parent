@@ -42,12 +42,12 @@
 						<id>wsdl3</id>
 						<goals><goal>wsdl2code</goal></goals>
 						<configuration>
-							<wsdlFile>http://172.19.7.194:9763/services/0.0.3/AccessRecordService?wsdl</wsdlFile>
+							<wsdlFile>http://172.19.7.194:9763/services/0.0.2/AccessRecordService?wsdl</wsdlFile>
 							<databindingName>xmlbeans</databindingName>
 						</configuration>
 					</execution>
 					<execution>
-						<id>wsdl3</id>
+						<id>wsdl4</id>
 						<goals><goal>wsdl2code</goal></goals>
 						<configuration>
 							<wsdlFile>http://intesb.cloud.s104.com.tw/services/MongoService.0.0?wsdl</wsdlFile>
