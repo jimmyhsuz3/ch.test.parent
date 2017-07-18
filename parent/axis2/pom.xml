@@ -46,6 +46,16 @@
 							<databindingName>xmlbeans</databindingName>
 						</configuration>
 					</execution>
+<!-- Error parsing WSDL
+					<execution>
+						<id>wsdl32</id>
+						<goals><goal>wsdl2code</goal></goals>
+						<configuration>
+							<wsdlFile>http://172.19.7.194:9763/services/0.0.2/AccessRecordService?wsdl2</wsdlFile>
+							<databindingName>xmlbeans</databindingName>
+						</configuration>
+					</execution>
+-->
 					<execution>
 						<id>wsdl4</id>
 						<goals><goal>wsdl2code</goal></goals>
