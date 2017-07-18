@@ -23,6 +23,7 @@
 						<configuration>
 							<sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>
 							<wsdlOptions>
+<!-- HJAAM -->
 <!-- 								<wsdlOption><wsdl>http://localhost:8080/JavaFirstSpringSupport/services/HelloWorld?wsdl</wsdl></wsdlOption> -->
 								<wsdlOption><wsdl>http://localhost:8081/java_first_spring_support/services/HelloWorld?wsdl</wsdl></wsdlOption>
 								<wsdlOption><wsdl>http://esb.cloud.s104.com.tw/services/JobRecomm.0.0?wsdl</wsdl></wsdlOption>

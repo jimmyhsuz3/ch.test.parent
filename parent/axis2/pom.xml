@@ -22,6 +22,7 @@
 				<groupId>org.apache.axis2</groupId>
 				<artifactId>axis2-wsdl2code-maven-plugin</artifactId>
 				<executions>
+<!-- HJAAM -->
 					<execution>
 						<id>wsdl1</id>
 						<goals><goal>wsdl2code</goal></goals>
