@@ -12,6 +12,10 @@ import com.e104.plus.service.impl.AccessRecordServiceStub;
 import com.e104.plus.service.impl.QueryActivityTotalPvDocument;
 import com.e104.plus.service.impl.ViewProfileFromProDocument;
 import com.e104.plus.service.impl.ViewProfileFromProDocument.ViewProfileFromPro;
+import java.io.IOException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.e104.plus.service.impl.ViewProfileFromProResponseDocument;
 import com.e104.plus.service.impl.QueryActivityTotalPvDocument.QueryActivityTotalPv;
 import demo.spring.service.GetDocument;
@@ -35,6 +39,31 @@ public class Axis2Test {
 			select.setDBname("mdb0c00038");
 			select.setCollectionname("jimmy_test");
 			builder.append(stub.select(sDoc).getSelectResponse().getReturn());
+			builder.append('\n');
+			ObjectMapper mapper = new ObjectMapper();
+			JsonNode node = mapper.createObjectNode().set("$and", mapper.createArrayNode()
+					.add(mapper.createObjectNode().set("pid", mapper.createObjectNode().put("$gt", 100000)))
+					.add(mapper.createObjectNode().set("pid", mapper.createObjectNode().put("$lt", 200000))));
+			sDoc = SelectDocument.Factory.newInstance();
+			select = sDoc.addNewSelect();
+			select.setJSONQuery("{}");
+			select.setDBname("mdb0f00001");
+			select.setCollectionname("ProfileView");
+			select.setJSONQuery(node.toString());
+			String jsonReturn = stub.select(sDoc).getSelectResponse().getReturn();
+			JsonNode rootNode = null;
+			try {
+				rootNode = mapper.readTree(jsonReturn);
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+				builder.append(e.getLocalizedMessage());
+			} catch (IOException e) {
+				e.printStackTrace();
+				builder.append(e.getLocalizedMessage());
+			}
+			if (rootNode != null)
+				for (int i = 0; i < rootNode.size(); i++)
+					builder.append(rootNode.get(i).get("pid").asLong()).append(',');
 		} catch (AxisFault e) {
 			e.printStackTrace();
 			builder.append(e.getLocalizedMessage());
