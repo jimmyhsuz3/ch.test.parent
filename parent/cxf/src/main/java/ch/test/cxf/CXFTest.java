@@ -17,12 +17,29 @@ public class CXFTest {
 	public static void main(String[] args){
 		System.out.println(new CXFTest().testMongoServiceProfileView());
 	}
+	private void jsonTest(String jsonReturn){
+		ObjectMapper mapper = new ObjectMapper();
+		ProfileViewQuery pvq = new ProfileViewQuery();
+		pvq.setPidGreaterThan(100000);
+		pvq.setPidLessThan(200000);
+		MongoDBJSON mongoDBJSON = new MongoDBJSON("mdb0f00001", "ProfileView", "find", pvq);
+		String jsonTest1 = null, jsonTest2 = null;
+		try {
+			jsonTest1 = new MongoService00().getMongoService00HttpSoap11Endpoint().select("mdb0f00001", "ProfileView", mapper.writeValueAsString(pvq));
+			jsonTest2 = new MongoService00().getMongoService00HttpSoap11Endpoint().json(mapper.writeValueAsString(mongoDBJSON));
+		} catch (com.fasterxml.jackson.core.JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		if (!jsonReturn.equals(jsonTest1) || !jsonReturn.equals(jsonTest2))
+			throw new RuntimeException("jsonReturn != jsonTest1, jsonTest2 !");
+	}
 	private String testMongoServiceProfileView(){
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode node = mapper.createObjectNode().set("$and", mapper.createArrayNode()
 				.add(mapper.createObjectNode().set("pid", mapper.createObjectNode().put("$gt", 100000)))
 				.add(mapper.createObjectNode().set("pid", mapper.createObjectNode().put("$lt", 200000))));
 		String jsonReturn = new MongoService00().getMongoService00HttpSoap11Endpoint().select("mdb0f00001", "ProfileView", node.toString());
+		jsonTest(jsonReturn);
 		ArrayNode ary = mapper.createArrayNode();
 		String JsonTestStr = "{\"name\":\"JsonTest\"}";
 		try {
