@@ -1,6 +1,9 @@
 package ch.test.axis2;
 import java.rmi.RemoteException;
 import org.apache.axis2.AxisFault;
+import com.e104.aop.SearchTalentCountDocument;
+import com.e104.aop.SearchTalentCountDocument.SearchTalentCount;
+import com.e104.aop.TestAopServiceStub;
 import com.e104.mongo.MongoService00Stub;
 import com.e104.mongo.SelectDocument;
 import com.e104.mongo.SelectDocument.Select;
@@ -28,6 +31,25 @@ public class Axis2Test {
 		System.out.println(new Axis2Test().testJobRecomm());
         System.out.println(new Axis2Test().testAccessRecord());
         System.out.println(new Axis2Test().testMongoService());
+        System.out.println(new Axis2Test().testTestAopService());
+	}
+	public String testTestAopService(){
+		StringBuilder builder = new StringBuilder();
+		try {
+			TestAopServiceStub atub = new TestAopServiceStub();
+			SearchTalentCountDocument doc = SearchTalentCountDocument.Factory.newInstance();
+			SearchTalentCount search = doc.addNewSearchTalentCount();
+			search.setCondition("def");
+			search.setCustProfile("abc");
+			builder.append(atub.searchTalentCount(doc).getSearchTalentCountResponse().getReturn());
+		} catch (AxisFault e) {
+			e.printStackTrace();
+			builder.append(e.getLocalizedMessage());
+		} catch (RemoteException e) {
+			e.printStackTrace();
+			builder.append(e.getLocalizedMessage());
+		}
+		return builder.toString();
 	}
 	public String testMongoService(){
 		StringBuilder builder = new StringBuilder();

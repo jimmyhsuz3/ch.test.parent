@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	</head>
+	<body></body>
+<script>
+	$(document).ready(function(){
+		$.get('testGit',{strFrom:'2017-7-30 0:0:0'},function(data){
+			$('body').append(gitDiv(data));
+		},'json');
+	});
+	function gitDiv(data){
+		var $div = $('<div></div>');
+		for (var i in data)
+			$div.append($('<button></button>').html(i).click(function(){
+				$div.children('.content').remove();
+				var $content = $('<div class="content"></div>').appendTo($div);
+				var url = $(this).html();
+				for (var g in data[url])
+					for (var c in data[url][g])
+						for (var d in data[url][g][c])
+							$content.append($('<textarea></textarea>').width('100%').height('200px').html(data[url][g][c][d]));
+			})).append('<br/>');
+		return $div;
+	}
+</script>
+</html>

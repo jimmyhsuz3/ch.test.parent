@@ -2,4 +2,8 @@
 <web-app>
 	<servlet><servlet-name>test</servlet-name><servlet-class>simpleweb.TestServlet</servlet-class></servlet>
 	<servlet-mapping><servlet-name>test</servlet-name><url-pattern>/test</url-pattern></servlet-mapping>
+	<servlet><servlet-name>testGit</servlet-name><servlet-class>simpleweb.TestGitServlet</servlet-class></servlet>
+	<servlet-mapping><servlet-name>testGit</servlet-name><url-pattern>/testGit</url-pattern></servlet-mapping>
+	<servlet><servlet-name>testDemo</servlet-name><servlet-class>simpleweb.TestDemoServlet</servlet-class></servlet>
+	<servlet-mapping><servlet-name>testDemo</servlet-name><url-pattern>/testDemo</url-pattern></servlet-mapping>
 </web-app>

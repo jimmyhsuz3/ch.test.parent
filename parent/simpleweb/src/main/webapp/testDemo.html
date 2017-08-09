@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+		<style>
+			.tab{display:none}
+			span{vertical-align:top}
+		</style>
+	</head>
+	<body>
+		<select>
+			<option></option>
+			<option>getArticle</option>
+			<option>getArticles</option>
+			<option>saveArticle</option>
+		</select>
+		<br/><br/>
+		<div class='getArticle tab'>
+			<span>userName : </span><input type='text' value='user2'/><br/><br/>
+			<span>articleId : </span><input type='text' value='88888'/><br/><br/>
+			<input type='button' value='getArticle'/>&nbsp;<span class='msg'></span><br/><br/>
+		</div>
+		<div class='getArticles tab'>
+			<span>userName : </span><input type='text' value='user2'/><br/><br/>
+			<input type='button' value='getArticles'/>
+		</div>
+		<div class='saveArticle tab'>
+			<span>userName : </span><input type='text' /><br/><br/>
+			<div class='data-div'></div><br/>
+			<input type='button' value='saveArticle'/>&nbsp;<span class='msg'></span>
+		</div>
+		<div class='data-template' style='display:none'>
+			<span>articleId : </span><span></span><span>,&nbsp;</span>
+			<span>content : </span><textarea style='width:50%;height:80px'></textarea><br/>
+			<input type='button' value='updateArticle'/><span class='msg'></span><br/><br/>
+		</div>
+	</body>
+<script>
+// !~!xxxx<a href='???'>.###.</a>xxxx!~!
+// 文章開頭,<a href='???'>標籤的內容</a>,文章結尾
+	$(document).ready(function(){
+		function divData(articleId,content){
+			var $data = $('body>div.data-template').clone().prop('class','data').css('display','block');
+			$data.find('textarea,span').each(function(){
+				if($(this).prev()[0] && $(this).prev()[0].tagName=='SPAN'){
+					$(this).prop('name',$(this).prev().html().replace(' : ',''));
+				}
+			});
+			var $span=$data.find('span').filter(function(){return $(this).prop('name')=='articleId';}).html(articleId);
+			var $textarea=$data.find('[name$="content"]').html(content);
+			$data.find('input:button').click(function(){
+				var $tab = $(this).parents('.tab').first();
+				var userName = $tab.find('[name$="userName"]').val();
+				var articleId = $span.html();
+				var content = $textarea.val();
+				var $btn=$(this);
+				$.get('testDemo',{action:$(this).val(),userName:userName,articleId:articleId,content:content},function(data){
+					$btn.next('span.msg').html(data.response.pojo);
+				},'json');
+			});
+			return $data;
+		}
+		$('select').change(function(){
+			$('div.tab').hide();
+			var action = $(this).children('option:selected').text();
+			if(action)$('div.'+action).show();
+		}).children('option').each(function(){
+			var action = $(this).text();
+			if(action){
+				var $tab = $('div.'+action);
+				$tab.find('input:text').each(function(){$(this).prop('name',$(this).prev().html().replace(' : ',''));});
+				$tab.find('input:button').each(function(){
+					$(this).click(function(){
+						var action = $(this).val();
+						var $tab = $(this).parents('.tab').first();
+						var userName = $tab.find('[name$="userName"]').val();
+						var articleId = $tab.find('[name$="articleId"]').val();
+						var content = $tab.find('[name$="content"]').val();
+						var $btn=$(this);
+						$tab.find('div.data').remove();
+						if(action=='getArticle'){
+							$.get('testDemo',{action:action,userName:userName,articleId:articleId},function(data){
+								if(data.response.pojo)
+									$tab.append(divData(data.response.pojo.articleId, data.response.pojo.content));
+								$btn.next('span.msg').html(data.response.time+'ms');
+							},'json');
+						} else if(action=='getArticles'){
+							$.get('testDemo',{action:action,userName:userName},function(data){
+								for(var i in data.response.pojo)
+									var $data = divData(data.response.pojo[i].articleId, data.response.pojo[i].content).appendTo($tab);
+							},'json');
+						} else if(action=='saveArticle'){
+							$.get('testDemo',{action:action,userName:userName,content:content},function(data){
+								$btn.next('span.msg').html('articleId = ' + data.response.pojo);
+							},'json');
+						}
+					});
+				})
+			}
+		});
+		$('.saveArticle div.data-div').append(divData().find('textarea'));
+	});
+</script>
+</html>
