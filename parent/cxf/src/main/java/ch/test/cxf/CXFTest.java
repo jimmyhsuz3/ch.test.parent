@@ -15,6 +15,12 @@ import demo.spring.service.HelloWorldImplService;
 public class CXFTest {
 	private List<String> list = new ArrayList<String>();
 	public static void main(String[] args){
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			System.out.println(mapper.writeValueAsString(mapper.readValue("{\"MongoDB\":\"JsonTest\"}", JsonTest.class)));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		System.out.println(new CXFTest().testMongoServiceProfileView());
 	}
 	private void jsonTest(String jsonReturn){
